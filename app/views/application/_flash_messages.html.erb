@@ -1,0 +1,6 @@
+
+<% flash.select{|t,m| m.present?}.each do |type, message| %>
+  <% (message.kind_of?(Array) ? message : [message]).each do |m| %>
+    <div class="error text-center margin-bottom margin-top"><%= m %></div>
+  <% end %>
+<% end %>

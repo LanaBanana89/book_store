@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DiplomasForContributors</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center margin-bottom margin-top">Products of Stores</h1>
+      <h3 class="text-center margin-bottom">Store: <%= @store.name %>, <%= @store.city %>, <%= @store.address %>, <%= @store.metro_station %></h2>
+
+      <table class="table">
+        <thead>
+          <tr>      
+            <th>Code</th>
+            <th>Name</th>
+            <th>Weight</th>
+            <th>Size</th>
+            <th>Color</th>
+            <th>Price</th>
+            <th>Balance</th>      
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>        
+              <td><%= product.code %></td>
+              <td><%= product.name %></td>
+              <td><%= product.weight %></td>
+              <td><%= product.size %></td>
+              <td><%= product.color %></td>
+              <td><%= product.price %></td>
+              <td><%= StoreProduct.where(store_id: @store.id, product_id: product.id).first.balance %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="text-center margin-top">
+        <%= link_to 'Back', stores_path, class: "btn btn-primary link" %>
+      </div>
+    </div>
+  </body>
+</html>

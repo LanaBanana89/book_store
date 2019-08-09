@@ -1,0 +1,96 @@
+  <div class="container">
+    <h1 class="text-center margin-bottom margin-top">Stores of products</h1>
+    <form action=<%= download_path%> method="GET">
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <th>
+              <p class="header-checkbox"><input type="checkbox" class="form-check-input" id="all"></p>
+            </th>
+            <th>Store</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Metro Station</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <% @stores.each do |store| %>
+              <tr class="tr" data-link="<%= store_path(store.id)%>">
+                <td>
+                  <div class="form-check parent-checkbox">
+                    <label class="form-check-label checkbox">
+                      <input type="checkbox" class="form-check-input checked" name="stores[]" value="<%= store.id %>">
+                    </label>
+                  </div>
+                </td>
+                <td class="click_link"><%= store.name %></td>
+                <td class="click_link"><%= store.city %></td>
+                <td class="click_link"><%= store.address %></td>
+                <td class="click_link"><%= store.metro_station %></td>
+              <tr>
+          <% end %>
+        </tbody>
+      </table>
+      <h1 class="text-center margin-bottom margin-top">Export products</h1>
+      <div class="center">
+          <div class="form-check inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name='fields[]' value='product_name'>
+              Название продукта
+            </label>
+          </div>
+          <div class="form-check inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name='fields[]' value='product_color'>
+              Цвет
+            </label>
+          </div>
+          <div class="form-check inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name='fields[]' value='product_weight'>
+              Вес
+            </label>
+          </div>
+          <div class="form-check inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name='fields[]' value='size'>
+              Размер
+            </label>
+          </div>
+          <div class="form-check inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name='fields[]' value='product_price'>
+              Цена
+            </label>
+          </div>
+          <div class="form-check inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name='fields[]' value='store_address'>
+              Адрес магазина
+            </label>
+          </div>
+          <div class="form-check inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name='fields[]' value='metro_station'>
+              Станция метро
+            </label>
+          </div>
+          <div class="form-check inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name='fields[]' value='store_city'>
+              Город
+            </label>
+          </div>
+      </div>
+      <div class="text-center margin-top">
+        <%= content_tag(:button, "Export xlsx", :type=>:submit, class: 'btn btn-primary margin-top link')%>
+      </div>
+    </form>
+  </div>
+
+<script>
+  $("#all").click(function() {
+    $(".checked").prop('checked',$(this).prop('checked'));
+  })
+  $("td.click_link").click(function() { window.location = $(this).parent().data("link") })
+</script>

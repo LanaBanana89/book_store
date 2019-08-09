@@ -1,0 +1,57 @@
+wb = xlsx_package.workbook
+
+wb.styles do |s|
+  header_text = s.add_style b: true,
+                            alignment: {
+                              horizontal: :center,
+                              vertical: :center,
+                              wrap_text: true
+                            }
+
+  text_center = s.add_style alignment: {
+                              horizontal: :center,
+                              vertical: :center,
+                              wrap_text: true
+                            }
+
+  wb.add_worksheet(name: "Stores") do |sheet|
+    headers = ["Артикул", "Магазин", "Остаток"]
+    if params[:fields]
+      params[:fields].each do |field|
+        case field
+        when 'product_name' then headers << "Название продукта"
+        when 'product_color' then headers << "Цвет"
+        when 'product_weight' then headers << "Вес"      
+        when 'size' then headers << "Размер"
+        when 'product_price' then headers << "Цена"
+        when 'store_address' then headers << "Адрес магазина"
+        when 'metro_station' then headers << "Станция метро"
+        when 'store_city' then headers << "Город"
+        end
+      end
+    end
+    sheet.add_row headers, style: header_text  
+    
+    @stores.each do |store|
+      store.products.each do |product|
+        balance = "#{StoreProduct.where(store_id: store.id, product_id: product.id).first.balance}"
+        values = [product.code, store.name, balance]
+        if params[:fields]
+          params[:fields].each do |field|
+            case field
+            when 'product_name' then values << product.name
+            when 'product_color' then values << product.color
+            when 'product_weight' then values << product.weight        
+            when 'size' then values << product.size
+            when 'product_price' then values << product.color
+            when 'store_address' then values << store.address
+            when 'metro_station' then values << store.metro_station
+            when 'store_city' then values << store.city
+            end
+          end
+        end    
+        sheet.add_row values, style: text_center
+      end
+    end   
+  end
+end

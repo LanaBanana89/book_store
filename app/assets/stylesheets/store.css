@@ -1,0 +1,52 @@
+.thead {
+  font-size: 18px;
+  text-align: center;
+}
+
+.tbody {
+  text-align: center;
+}
+
+.margin-top {
+  margin-top: 30px;
+}
+
+.margin-bottom {
+  margin-bottom: 30px;
+}
+
+.tr:hover {
+  background-color: orange;
+}
+
+.inline {
+  display: inline-block;
+  margin-left: 10px;  
+}
+
+.center {
+  text-align: center;
+}
+
+.link {
+  text-decoration: none;
+  color: white !important;
+}
+
+.parent-checkbox {  
+  position: relative;  
+}
+
+.checkbox {
+  position: absolute;
+}
+
+.header-checkbox {
+  position: relative;
+  margin-left: 20px; 
+}
+
+.error {
+  color: red;
+  font-size: 20px;
+}
